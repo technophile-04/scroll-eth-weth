@@ -57,12 +57,17 @@ const WEthToEth = () => {
           </div>
         </div>
         <div className="flex flex-col space-y-3">
-          <InputBase placeholder="Amount to Withdraw" value={sendValue} onChange={value => setSendValue(value)} />
+          <InputBase
+            placeholder="Amount to Withdraw"
+            value={sendValue}
+            onChange={value => setSendValue(value)}
+            error={Boolean(sendValue) && !NUMBER_REGEX.test(sendValue)}
+          />
           {isConnected && connectedChain && connectedChain.id === scroll.id ? (
             <button
               className="h-10 btn btn-accent btn-sm px-2 rounded-full"
               onClick={() => depositETH()}
-              disabled={isLoading}
+              disabled={isLoading || !NUMBER_REGEX.test(sendValue)}
             >
               {!isLoading ? (
                 <BanknotesIcon className="h-6 w-6" />
